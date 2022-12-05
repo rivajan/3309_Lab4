@@ -133,7 +133,7 @@ function getProcuredFor() {
         data.forEach(e => {
           console.log(e);
           const item = document.createElement('li');
-          item.appendChild(document.createTextNode(e))
+          item.appendChild(document.createTextNode("Procurement Number: " + e.procurementNum))
           l.appendChild(item);
         })
       }))
