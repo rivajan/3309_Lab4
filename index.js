@@ -94,7 +94,7 @@ app.get('/api/procurementCost/getCost/:total_cost', (req, res) => {
 
 // Function 3
 // get procuremnt Number from batch mixin
-app.get('/api/data/procurement', (req, res) => {
+app.get('/api/data/procurement/procure', (req, res) => {
   var query = "SELECT ProcurementOfIngInRec.procurementNum FROM BatchMix INNER JOIN ProcurementOfIngInRec ON BatchMix.recipeID=ProcurementOfIngInRec.recipeID;"
   db.query(query, function (err, result, fields) {
     if (err) throw err;
@@ -135,12 +135,13 @@ app.get('/api/import-Emp-Ship', (req, res) => {
   });
 })
 // INSERT a new EmpShipInv
-app.put('/api/import-Emp-Ship/:employeeID/:package_type/:package_stock', (req, res) => {
-  var query = ` INSERT INTO EmpShipInv VALUES (
-    ${req.params.employeeID},
+app.put('/api/import-Emp-Ship/:city/:streetName/:streetNumber/:postalCode', (req, res) => {
+  var query = ` INSERT INTO Shipment VALUES (
     SUBSTR(MD5(RAND()),1,5),
-    '${req.params.package_type}',
-    ${req.params.package_stock}
+    '${req.params.city}',
+    '${req.params.streetName}',
+    ${req.params.streetNumber},
+    ${req.params.postalCode}
   )`
   db.query(query, function (err, result, fields) {
     if (err) throw err;
@@ -149,35 +150,15 @@ app.put('/api/import-Emp-Ship/:employeeID/:package_type/:package_stock', (req, r
   });
 })
 
-// SELECT employeeID FROM EmpShipInv from params
-app.get('/api/get-empID/:employeeID', (req, res) => {
-  var query = `SELECT employeeID FROM EmpShipInv where employeeID = ${req.params.employeeID}`
+// SELECT package FROM Shipment from params
+app.get('/api/get-shipment/ship/:city', (req, res) => {
+  var query = `SELECT orderNumber FROM Shipment where city = '${req.params.city}'`
   db.query(query, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     res.send(result)
   });
 })
-
-// Kinda useless
-// // INSERT a new shipment connected from employeeID
-// app.put('/api/import-shipment/:employeeID', (req, res) => {
-//   var query = ` INSERT INTO Shipment(orderNumber) SELECT orderNumber FROM EmpShipInv where employeeID = ${req.params.recipeID}`
-//   db.query(query, function (err, result, fields) {
-//     if (err) throw err;
-//     console.log(result);
-//     res.send(result)
-//   });
-// })
-// // Find shipment with orderNumber
-// app.get('/api/import-shipment/:orderNumber', (req, res) => {
-//   var query = `SELECT orderNumber FROM Shipment where orderNumber = ${req.params.orderNumber}`
-//   db.query(query, function (err, result, fields) {
-//     if (err) throw err;
-//     console.log(result);
-//     res.send(result)
-//   });
-// })
 
 app.listen('3000', () => {
   console.log('Server started on port 3000');

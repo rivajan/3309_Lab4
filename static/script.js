@@ -5,6 +5,10 @@ document.getElementById('put-procurement').addEventListener('click', createProcu
 document.getElementById('get-procurement').addEventListener('click', getProcurement);
 document.getElementById('get-label').addEventListener('click', getTotalCount);
 document.getElementById('get-LabelDel').addEventListener('click', deleteLabels);
+document.getElementById('get-batchMix').addEventListener('click', getProcuredFor);
+document.getElementById('get-packages').addEventListener('click', getPackages);
+document.getElementById('put-shipment').addEventListener('click', createShipment);
+document.getElementById('get-shipment').addEventListener('click', getShipments);
 
 
 function getTotalCost() {
@@ -118,6 +122,23 @@ function getProcurement() {
   }
 }
 
+
+// WAIT FOR RIVA DATA TO TEST
+function getProcuredFor() {
+  fetch(`/api/data/procurement/procure`)
+    .then(res => res.json()
+      .then(data => {
+        const l = document.getElementById('batchMix-data');
+        l.innerHTML = "";
+        data.forEach(e => {
+          console.log(e);
+          const item = document.createElement('li');
+          item.appendChild(document.createTextNode(e))
+          l.appendChild(item);
+        })
+      }))
+}
+
 function getTotalCount() {
   fetch(`/api/get-cost/totalCount`)
     .then(res => res.json()
@@ -147,6 +168,74 @@ function deleteLabels() {
           } else {
             labelType.value = "";
             alert("PLEASE ENTER APPROPRIATE VALUES!");
+          }
+        }))
+  }
+}
+
+function getPackages() {
+  fetch(`/api/import-Emp-Ship`)
+    .then(res => res.json()
+      .then(data => {
+        const l = document.getElementById('package-data');
+        l.innerHTML = "";
+        data.forEach(e => {
+          console.log(e);
+          const item = document.createElement('li');
+          item.appendChild(document.createTextNode("Package Type: " + e.packageType + " Package Stock: " + e.packageStock))
+          l.appendChild(item);
+        })
+      }))
+}
+
+function createShipment() {
+  var city = document.getElementById('city-val').value;
+  var streetName = document.getElementById('streetName-val').value;
+  var streetNumber = document.getElementById('streetNumber-val').value;
+  var postalCode = document.getElementById('postalCode-val').value;
+
+  if (city != "" && streetName != "" && streetNumber != "" && postalCode != "") {
+    fetch(`/api/import-Emp-Ship/${city}/${streetName}/${streetNumber}/${postalCode}`, {
+      method: 'PUT'
+    })
+      .then(res => res.json()
+        .then(data => {
+          if (city.match(/[a-z]/i) && !city.match(/[0-9]/i) && !streetNumber.match(/[a-z]/i) && streetNumber.match(/[0-9]/i) && streetName.match(/[a-z]/i) && !streetName.match(/[0-9]/i) && !postalCode.match(/[a-z]/i) && postalCode.match(/[0-9]/i)) {
+            city = "";
+            streetName = "";
+            streetNumber = "";
+            postalCode = ""
+            console.log(data)
+          } else {
+            city = "";
+            streetName = "";
+            streetNumber = "";
+            postalCode = ""
+            alert("PLEASE ENTER APPROPRIATE VALUES!");
+          }
+        }))
+  }
+}
+
+function getShipments() {
+  var city = document.getElementById('find-shipment').value;
+  if (city != "") {
+    fetch(`/api/get-shipment/ship/${city}`)
+      .then(res => res.json()
+        .then(data => {
+          if (city.match(/[a-z]/i) && !city.match(/[0-9]/i)) {
+            const l = document.getElementById('shipment-data');
+            l.innerHTML = "";
+            city = "";
+            data.forEach(e => {
+              console.log(e);
+              const item = document.createElement('li');
+              item.appendChild(document.createTextNode("Order Number: " + e.orderNumber))
+              l.appendChild(item);
+            })
+          } else {
+            city = "";
+            alert("PLEASE ENTER NUMBERS ONLY!");
           }
         }))
   }
