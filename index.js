@@ -81,8 +81,8 @@ app.put('/api/add-procurement/:total_cost', (req, res) => {
   });
 })
 
-app.get('/api/data/procurementCost/:total_cost', (req, res) => {
-  var query = `SELECT totalCost, procurementNum FROM Procurement WHERE totalCost = ${req.params.totalCost}`
+app.get('/api/procurementCost/getCost/:total_cost', (req, res) => {
+  var query = `SELECT totalCost, procurementNum FROM Procurement WHERE totalCost = ${req.params.total_cost};`
   db.query(query, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
