@@ -105,7 +105,7 @@ app.get('/api/data/procurement', (req, res) => {
 
 // Function 4
 // Get count of all packages in certain labels
-app.get('/api/get-cost/totalcost', (req, res) => {
+app.get('/api/get-cost/totalCount', (req, res) => {
   var query = `SELECT packageLabel, COUNT(barcode) FROM PackagedProduct
   GROUP BY packageLabel
   ORDER BY COUNT(barcode) DESC`

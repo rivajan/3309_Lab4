@@ -3,6 +3,8 @@ document.getElementById('get-stock').addEventListener('click', getStocks);
 document.getElementById('post-stock').addEventListener('click', updateStocks);
 document.getElementById('put-procurement').addEventListener('click', createProcuremnt);
 document.getElementById('get-procurement').addEventListener('click', getProcurement);
+document.getElementById('get-label').addEventListener('click', getProcurement);
+document.getElementById('get-LabelDel').addEventListener('click', deleteLabels);
 
 
 function getTotalCost() {
@@ -101,7 +103,7 @@ function getProcurement() {
           if (!totalCost.match(/[a-z]/i) && totalCost.match(/[0-9]/i)) {
             const l = document.getElementById('procurement-data');
             l.innerHTML = "";
-            totalCost= "";
+            totalCost = "";
             data.forEach(e => {
               console.log(e);
               const item = document.createElement('li');
@@ -116,3 +118,36 @@ function getProcurement() {
   }
 }
 
+function getProcurement() {
+  fetch(`/api/get-cost/totalCount`)
+    .then(res => res.json()
+      .then(data => {
+        const l = document.getElementById('label-data');
+        l.innerHTML = "";
+        data.forEach(e => {
+          console.log(e);
+          const item = document.createElement('li');
+          item.appendChild(document.createTextNode("Package Label: " + e.packageLabel + " Count: " + e["COUNT(barcode)"]))
+          l.appendChild(item);
+        })
+      }))
+}
+
+function deleteLabels() {
+  const labelType = document.getElementById('find-LabelDel').value;
+  if (labelType.value != "" && labelType.value != "") {
+    fetch(`/api/delete/${labelType}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.json()
+        .then(data => {
+          if (labelType.match(/[a-z]/i) && !labelType.match(/[0-9]/i)) {
+            labelType.value = "";
+            console.log(data)
+          } else {
+            labelType.value = "";
+            alert("PLEASE ENTER APPROPRIATE VALUES!");
+          }
+        }))
+  }
+}
