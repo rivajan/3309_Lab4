@@ -3,7 +3,7 @@ document.getElementById('get-stock').addEventListener('click', getStocks);
 document.getElementById('post-stock').addEventListener('click', updateStocks);
 document.getElementById('put-procurement').addEventListener('click', createProcuremnt);
 document.getElementById('get-procurement').addEventListener('click', getProcurement);
-document.getElementById('get-label').addEventListener('click', getProcurement);
+document.getElementById('get-label').addEventListener('click', getTotalCount);
 document.getElementById('get-LabelDel').addEventListener('click', deleteLabels);
 
 
@@ -118,7 +118,7 @@ function getProcurement() {
   }
 }
 
-function getProcurement() {
+function getTotalCount() {
   fetch(`/api/get-cost/totalCount`)
     .then(res => res.json()
       .then(data => {
