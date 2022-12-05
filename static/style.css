@@ -1,0 +1,123 @@
+html {
+  background-color: #d5e7ff;
+  font-size: 20px;
+  font-family: bungee, sans-serif;
+  text-align: center;
+  align-content: center;
+}
+
+h2 {
+  font-size: 30px
+}
+
+h3 {
+  font-size: 15px
+}
+
+button {
+  height: 50px;
+  float: center;
+  background: rgb(255, 160, 77);
+  color: white;
+  font-family: bungee, sans-serif;
+  font-size: "30px";
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button:hover {
+  float: center;
+  background: white;
+  color: rgb(228, 100, 36);
+  font-family: bungee, sans-serif;
+  font-size: "40px";
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.Input-Search {
+  background-color: rgb(245, 235, 220);
+  color: rgb(85, 85, 85);
+  padding: 20px;
+  width: 475px;
+  margin-left: 175px;
+  height: 200px;
+  border-radius: 30px;
+  border: 2px solid rgb(198, 198, 198);
+}
+
+input[type=text] {
+  width: 25%;
+  padding: 20px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  border-width: 1px;
+}
+
+
+.Input Search input {
+  font-size: 20px;
+  font-family: bungee, sans-serif;
+  border: 2px solid rgb(198, 198, 198);
+  border-radius: 5px;
+  width: 300px;
+  height: 45px;
+}
+
+.Input-Results {
+  background-color: #ffffff;
+  color: rgb(85, 85, 85);
+  border: 2px solid rgb(198, 198, 198);
+  margin-left: 700px;
+  align-content: center;
+  width:475px;
+  padding: 20px;
+  border-radius: 30px;
+}
+
+.Input-Results input {
+  font-size: 20px;
+  font-family: bungee, sans-serif;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  border-color: rgb(85, 85, 85);
+  width: 300px;
+  height: 45px;
+}
+
+.title {
+  font-family: bungee, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: calc(2rem + 3vw);
+  padding: 40px;
+  text-align: center;
+  margin: 0;
+  color: #ff9e3d;
+  animation: shadows 1.2s ease-in infinite, move 1.2s ease-in infinite;
+  letter-spacing: 0.4rem;
+}
+
+@keyframes move {
+  0% {
+    transform: translate(0px, 0px);
+  }
+
+  40% {
+    transform: translate(-12px, -12px);
+  }
+
+  50% {
+    transform: translate(-12px, -12px);
+  }
+
+  60% {
+    transform: translate(-12px, -12px);
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
