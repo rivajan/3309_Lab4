@@ -4,9 +4,12 @@ document.getElementById('post-stock').addEventListener('click', updateStocks);
 document.getElementById('put-procurement').addEventListener('click', createProcuremnt);
 document.getElementById('get-procurement').addEventListener('click', getProcurement);
 document.getElementById('get-label').addEventListener('click', getTotalCount);
+document.getElementById('get-label-hide').addEventListener('click', getTotalCountHide);
 document.getElementById('get-LabelDel').addEventListener('click', deleteLabels);
 document.getElementById('get-batchMix').addEventListener('click', getProcuredFor);
+document.getElementById('get-batchMix-hide').addEventListener('click', getProcuredForHide);
 document.getElementById('get-packages').addEventListener('click', getPackages);
+document.getElementById('get-packages-hide').addEventListener('click', getPackagesHide);
 document.getElementById('put-shipment').addEventListener('click', createShipment);
 document.getElementById('get-shipment').addEventListener('click', getShipments);
 
@@ -139,6 +142,11 @@ function getProcuredFor() {
       }))
 }
 
+function getProcuredForHide() {
+  const l = document.getElementById('batchMix-data');
+  l.innerHTML = "";
+}
+
 function getTotalCount() {
   fetch(`/api/get-cost/totalCount`)
     .then(res => res.json()
@@ -152,6 +160,10 @@ function getTotalCount() {
           l.appendChild(item);
         })
       }))
+}
+function getTotalCountHide() {
+  const l = document.getElementById('label-data');
+  l.innerHTML = "";
 }
 
 function deleteLabels() {
@@ -186,6 +198,11 @@ function getPackages() {
           l.appendChild(item);
         })
       }))
+}
+
+function getPackagesHide() {
+  const l = document.getElementById('package-data');
+  l.innerHTML = "";
 }
 
 function createShipment() {
