@@ -63,19 +63,15 @@ function getStocks() {
 function updateStocks() {
   const ingredientName = document.getElementById('ingredientName-val').value;
   const ingredientStock = document.getElementById('ingredientStock-val').value;
-  if (ingredientName.value != "" && ingredientStock.value != "") {
+  if(labelType.value != "" && labelType.value != "" && 0<ingredientName.length<30 && 0<ingredientStock<=(2^63)-1) {
     fetch(`/api/update-stock/${ingredientName}/${ingredientStock}`, {
       method: 'POST'
     })
       .then(res => res.json()
         .then(data => {
           if (ingredientName.match(/[a-z]/i) && !ingredientName.match(/[0-9]/i) && ingredientStock.match(/[0-9]/i) && !ingredientStock.match(/[a-z]/i)) {
-            ingredientName.value = "";
-            ingredientStock.value = "";
             console.log(data)
           } else {
-            ingredientName.value = "";
-            ingredientStock.value = "";
             alert("PLEASE ENTER APPROPRIATE VALUES!");
           }
         }))
@@ -84,17 +80,15 @@ function updateStocks() {
 
 function createProcuremnt() {
   const totalCost = document.getElementById('totalCost-val').value;
-  if (totalCost.value != "") {
+  if (labelType.value != "" && 0<totalCost<= 32767) {
     fetch(`/api/add-procurement/${totalCost}`, {
       method: 'PUT'
     })
       .then(res => res.json()
         .then(data => {
           if (!totalCost.match(/[a-z]/i) && totalCost.match(/[0-9]/i)) {
-            totalCost.value = "";
             console.log(data)
           } else {
-            totalCost.value = "";
             alert("PLEASE ENTER APPROPRIATE VALUES!");
           }
         }))
@@ -125,8 +119,6 @@ function getProcurement() {
   }
 }
 
-
-// WAIT FOR RIVA DATA TO TEST
 function getProcuredFor() {
   fetch(`/api/data/procurement/procure`)
     .then(res => res.json()
@@ -211,23 +203,15 @@ function createShipment() {
   var streetNumber = document.getElementById('streetNumber-val').value;
   var postalCode = document.getElementById('postalCode-val').value;
 
-  if (city != "" && streetName != "" && streetNumber != "" && postalCode != "") {
+  if (labelType.value != "" && labelType.value != "" && labelType.value != "" && labelType.value != "" && 0<city.length<30 && 0<streetName.length<30 && 0<postalCode.length<30 && 0<streetNumber<=32767) {
     fetch(`/api/import-Emp-Ship/${city}/${streetName}/${streetNumber}/${postalCode}`, {
       method: 'PUT'
     })
       .then(res => res.json()
         .then(data => {
           if (city.match(/[a-z]/i) && !city.match(/[0-9]/i) && !streetNumber.match(/[a-z]/i) && streetNumber.match(/[0-9]/i) && streetName.match(/[a-z]/i) && !streetName.match(/[0-9]/i) && !postalCode.match(/[a-z]/i) && postalCode.match(/[0-9]/i)) {
-            city = "";
-            streetName = "";
-            streetNumber = "";
-            postalCode = ""
             console.log(data)
           } else {
-            city = "";
-            streetName = "";
-            streetNumber = "";
-            postalCode = ""
             alert("PLEASE ENTER APPROPRIATE VALUES!");
           }
         }))
